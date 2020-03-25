@@ -6,6 +6,8 @@ import { AppComponent } from './app.component';
 import { stepSwitcherReducer } from './step-switcher/step-switcher.reducer';
 import { StepSwitcherComponent } from './step-switcher/step-switcher.component';
 import { CounterComponent } from './counter/counter.component';
+import { environment } from 'src/environments/environment';
+import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 
 let reducers = {
     stepValue: stepSwitcherReducer
@@ -19,7 +21,11 @@ let reducers = {
     ],
     imports: [
         BrowserModule,
-        StoreModule.forRoot(reducers)
+        StoreModule.forRoot(reducers),
+        StoreDevtoolsModule.instrument({
+            maxAge: 25, // Retains last 25 states
+            logOnly: environment.production, // Restrict extension to log-only mode
+          }),
     ],
     providers: [],
     bootstrap: [AppComponent]
